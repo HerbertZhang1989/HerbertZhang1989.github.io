@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Enjoy Life</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://herbertzhang1989.github.io/"/>
+  <updated>2018-04-18T07:33:06.150Z</updated>
+  <id>https://herbertzhang1989.github.io/</id>
+  
+  <author>
+    <name>Herbert Zhang</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>make sure your installation medium is available</title>
+    <link href="https://herbertzhang1989.github.io/2018/04/18/suse-pxe/"/>
+    <id>https://herbertzhang1989.github.io/2018/04/18/suse-pxe/</id>
+    <published>2018-04-18T07:19:45.943Z</published>
+    <updated>2018-04-18T07:33:06.150Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">当使用PXE安装suse操作系统时，遇到:make sure your installation medium is available....</div></pre></td></tr></table></figure>
+<h3 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、没有dhcp服务</div><div class="line">2、dhcp服务配置错误</div><div class="line">3、有多个dhcp服务</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pr
+    
+    </summary>
+    
+    
+      <category term="suse" scheme="https://herbertzhang1989.github.io/tags/suse/"/>
+    
+      <category term="pxe" scheme="https://herbertzhang1989.github.io/tags/pxe/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>固定CentOS网卡名称为eth0-n</title>
+    <link href="https://herbertzhang1989.github.io/2018/04/11/network-eth0/"/>
+    <id>https://herbertzhang1989.github.io/2018/04/11/network-eth0/</id>
+    <published>2018-04-11T07:39:13.980Z</published>
+    <updated>2018-04-12T00:16:23.488Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、查看当前网卡名称"><a href="#1、查看当前网卡名称" class="headerlink" title="1、查看当前网卡名称"></a>1、查看当前网卡名称</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ip a</div></pre></td></tr></table></figure>
+<p><img src="css/images/ip_a.jpg" alt=""></p>
+<h3 id="2、修改对应网卡名称文件中的‘NAME’和‘DEVICE’的值"><a href="#2、修改对应网卡名称文件中的‘NAME’和‘DEVICE’的值" class="headerlink" title="2、修改对应网卡名称文件中的‘NAME’和‘DEVICE’的值"></a>2、修改对应网卡名称文件中的‘NAME’和‘DEVICE’的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i &apos;s/ens160/eth0/g&apos; /etc/sysconfig/network-scripts/ifcfg-ens160</div></pre></td></tr></table></figure>
+<h3 id="3、修改对应网卡名称的文件名"><a href="#3、修改对应网卡名称的文件名" class="headerlink" title="3、修改对应网卡名称的文件名"></a>3、修改对应网卡名称的文件名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv /etc/sysconfig/network-scripts/ifcfg-ens160 /etc/sysconfig/network-scripts/ifcfg-eth0</div></pre></td></tr></table></figure>
+<h3 id="4、修改-etc-sysconfig-grub文件"><a href="#4、修改-etc-sysconfig-grub文件" class="headerlink" title="4、修改/etc/sysconfig/grub文件"></a>4、修改/etc/sysconfig/grub文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GRUB_CMDLINE_LINUX=&quot;crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet&quot;</div><div class="line">TO:</div><div class="line">GRUB_CMDLINE_LINUX=&quot;crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet net.ifnames=0 biosdevname=0&quot;</div></pre></td></tr></table></figure>
+<h3 id="5、执行以下命令"><a href="#5、执行以下命令" class="headerlink" title="5、执行以下命令"></a>5、执行以下命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grub2-mkconfig -o /boot/grub2/grub.cfg</div></pre></td></tr></table></figure>
+<h3 id="6、重启机器"><a href="#6、重启机器" class="headerlink" title="6、重启机器"></a>6、重启机器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reboot</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、查看当前网卡名称&quot;&gt;&lt;a href=&quot;#1、查看当前网卡名称&quot; class=&quot;headerlink&quot; title=&quot;1、查看当前网卡名称&quot;&gt;&lt;/a&gt;1、查看当前网卡名称&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;t
+    
+    </summary>
+    
+    
+      <category term="centos" scheme="https://herbertzhang1989.github.io/tags/centos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>spec.identity.hostName wrong</title>
+    <link href="https://herbertzhang1989.github.io/2018/04/11/hostname/"/>
+    <id>https://herbertzhang1989.github.io/2018/04/11/hostname/</id>
+    <published>2018-04-11T07:39:13.980Z</published>
+    <updated>2018-04-13T08:54:29.307Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、问题描述：使用terraform创建vsphere虚机是报错spec-identity-hostName"><a href="#一、问题描述：使用terraform创建vsphere虚机是报错spec-identity-hostName" class="headerlink" title="一、问题描述：使用terraform创建vsphere虚机是报错spec.identity.hostName"></a>一、问题描述：使用terraform创建vsphere虚机是报错spec.identity.hostName</h2><h2 id="二、原因分析：主机名称中不能使用"><a href="#二、原因分析：主机名称中不能使用" class="headerlink" title="二、原因分析：主机名称中不能使用"></a>二、原因分析：主机名称中不能使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">规则：</div><div class="line">主机名只允许包含ascii字符里的数字0-9，字母a-zA-Z，连字符-。其他都不允许。例如，不允许出现其他标点符号，不允许空格，不允许下划线，不允许中文字符。</div><div class="line">主机名的开头和结尾字符不允许是连字符。</div><div class="line">主机名强烈建议不要用数字开头，尽管这一条不是强制的。甚至不要使用只包含可解释为16进制字符的字符串，例如&quot;beef&quot;。</div><div class="line">建议不要使用计算机领域的特殊的词汇，例如，up。</div><div class="line">给主机命名通常不考虑字母大小写问题，并且只用小写字母而不用大写字母。</div><div class="line">给主机命名，建议使用合法的单词，这样方便记忆。因为主机名是在一个domain的范围内唯一即可，通常不必担心重复问题。</div><div class="line"></div><div class="line">转自：https://blog.csdn.net/wanghuiict/article/details/70038140</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一、问题描述：使用terraform创建vsphere虚机是报错spec-identity-hostName&quot;&gt;&lt;a href=&quot;#一、问题描述：使用terraform创建vsphere虚机是报错spec-identity-hostName&quot; class=&quot;hea
+    
+    </summary>
+    
+    
+      <category term="terraform" scheme="https://herbertzhang1989.github.io/tags/terraform/"/>
+    
+      <category term="vsphere" scheme="https://herbertzhang1989.github.io/tags/vsphere/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ambari</title>
+    <link href="https://herbertzhang1989.github.io/2018/04/10/ambari_question_1/"/>
+    <id>https://herbertzhang1989.github.io/2018/04/10/ambari_question_1/</id>
+    <published>2018-04-10T00:01:36.169Z</published>
+    <updated>2018-04-12T03:22:08.646Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="css/images/ambari_1.jpg" alt=""></p>
+<h2 id="一、问题描述："><a href="#一、问题描述：" class="headerlink" title="一、问题描述："></a>一、问题描述：</h2><p>10 Nov 2017 02:13:22,688 ERROR [qtp-ambari-client-110] AbstractResourceProvider:280 - Caught AmbariException when creating a resource<br>org.apache.ambari.server.HostNotFoundException: Host not found, hostname=</p>
+<h2 id="二、问题原因："><a href="#二、问题原因：" class="headerlink" title="二、问题原因："></a>二、问题原因：</h2><p>The configured Jetty qtp-ambari-agent thread pool value of 25 is not sufficient on a host with 112 processors. Increasing the value to 48.<br>Jetty is configuring qtp-ambari-agent with 28 reserved acceptors/selectors and a total pool size of 48 for 112 processors.</p>
+<p> 如果服务器的CPU数量超过Jetty线程数量，Ambari Server将不会响应HTTP连接</p>
+<h2 id="三、解决方案："><a href="#三、解决方案：" class="headerlink" title="三、解决方案："></a>三、解决方案：</h2><h3 id="1-查询cpu核数："><a href="#1-查询cpu核数：" class="headerlink" title="1.查询cpu核数："></a>1.查询cpu核数：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nproc</div></pre></td></tr></table></figure>
+<h3 id="2-修改配置文件：-etc-ambari-server-conf-ambari-properties"><a href="#2-修改配置文件：-etc-ambari-server-conf-ambari-properties" class="headerlink" title="2.修改配置文件：/etc/ambari-server/conf/ambari.properties"></a>2.修改配置文件：/etc/ambari-server/conf/ambari.properties</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">client.threadpool.size.max=&lt;number of cores&gt;</div><div class="line">agent.threadpool.size.max=&lt;number of cores&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-重启amabri-server："><a href="#3-重启amabri-server：" class="headerlink" title="3.重启amabri-server："></a>3.重启amabri-server：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">amabri-server restart</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;css/images/ambari_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;一、问题描述：&quot;&gt;&lt;a href=&quot;#一、问题描述：&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述：&quot;&gt;&lt;/a&gt;一、问题描述：&lt;/h2&gt;&lt;p&gt;
+    
+    </summary>
+    
+    
+      <category term="ambari" scheme="https://herbertzhang1989.github.io/tags/ambari/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RAID自动化</title>
+    <link href="https://herbertzhang1989.github.io/2018/04/09/autoraid/"/>
+    <id>https://herbertzhang1989.github.io/2018/04/09/autoraid/</id>
+    <published>2018-04-09T07:45:15.686Z</published>
+    <updated>2018-04-11T07:54:31.106Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="css/images/raid.jpg" alt=""></p>
+<h2 id="一、简介："><a href="#一、简介：" class="headerlink" title="一、简介："></a>一、简介：</h2><p>​    构成RAID的方式通常有两种，第一类是软件RAID，通常是通过操作系统中自带的RAID功能来实现，但是软件RAID涉及到复杂的计算，需要占用CPU、内存等大量的系统资源。而且，本身RAID程序运行于操作系统上，也就是说，必须在安装操作系统之上才能组建RAID组，而安装操作系统的磁盘就无法加入RAID组了。一旦操作系统崩溃，RAID程序也就无法运行，对整个RAID组的数据安全都带来一定的隐患，因此，相对于软件RAID，更加常见的，其实是硬件RAID模式。</p>
+<p>​    RAID卡就是用独立的硬件板卡来实现RAID功能的办法，一块自带CPU的RAID卡俨然就是一个小型的计算机系统，有自己的CPU、内存、ROM、总线和IO接口，不过这个系统内的微型计算机专门用于处理RAID运算。</p>
+<p>​    SAS(Serial Attached SCSI)即串行连接SCSI，是新一代的SCSI技术，和现在流行的Serial ATA(SATA)硬盘相同，都是采用串行技术以获得更高的传输速度，并通过缩短连结线改善内部空间等。SAS是并行SCSI接口之后开发出的全新接口。此接口的设计是为了改善存储系统的效能、可用性和扩充性，并且提供与SATA硬盘的兼容性。</p>
+<p>​    长期以来，RAID卡市场一直是LSI、Adaptec、Highpoint、Promise等厂商“跑马遛弯”的专区，LSI和Adaptec继承了在SCSI RAID控制器市场的优势，随着SAS时代的到来，在SAS RAID市场同样统领风骚。</p>
+<p>​    Adaptec正在将它的RAID(独立磁盘冗余阵列)通道存储业务以3400万美元的价格出售给PMC-Sierra，如果交易顺利完成，Adaptec的RAID卡产品线则将划入PMC旗下。</p>
+<p>   转自：[<a href="http://storage.it168.com/a2010/0705/1073/000001073732_all.shtml" target="_blank" rel="external">IT168存储频道</a>]</p>
+<h2 id="二、adaptec"><a href="#二、adaptec" class="headerlink" title="二、adaptec"></a>二、adaptec</h2><p>使用arcconf工具：</p>
+<p>1、查看基本信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arcconf getconfig 1 AL</div></pre></td></tr></table></figure>
+<p>2、获取所有的逻辑设备信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arcconf getconfig 1 LD</div></pre></td></tr></table></figure>
+<p><img src="css/images/arcconf_ld.jpg" alt=""></p>
+<p>3、获取具体channel与PD对应信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arcconf getconfig 1 AL | grep -i &quot;Reported channel&quot;</div></pre></td></tr></table></figure>
+<p><img src="css/images/arcconf_channel.jpg" alt=""></p>
+<p>4、删除逻辑设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arcconf DELETE 1 LOGICALDRIVE 1</div></pre></td></tr></table></figure>
+<p>5、创建逻辑设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arcconf CREATE 1 LOGICALDRIVE name LD1 stripesize 256 name Volume_1 priority high method quick MAX 5 0 8 0 9 0 10 0 11 0 12 0 13 0 14 0 15</div></pre></td></tr></table></figure>
+<h2 id="三、LSI"><a href="#三、LSI" class="headerlink" title="三、LSI"></a>三、LSI</h2><p>使用storcli工具：</p>
+<p>1、查看基本信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">storcli show</div></pre></td></tr></table></figure>
+<p><img src="css/images/storcli_show.jpg" alt=""></p>
+<p>2、获取具体drivers与PD对应信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">storcli /c0/eall/sall show</div></pre></td></tr></table></figure>
+<p><img src="css/images/storcli_eall_sall.jpg" alt=""></p>
+<p>3、获取所有的逻辑设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">storcli /c0/vall show</div></pre></td></tr></table></figure>
+<p><img src="css/images/storcli_vall.jpg" alt=""></p>
+<p>4、删除逻辑设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">storcli /c0/v2 del</div></pre></td></tr></table></figure>
+<p>5、创建逻辑设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">storcli /c0 add vd type=r1 size=all drives=16:0,16:1</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;css/images/raid.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;一、简介：&quot;&gt;&lt;a href=&quot;#一、简介：&quot; class=&quot;headerlink&quot; title=&quot;一、简介：&quot;&gt;&lt;/a&gt;一、简介：&lt;/h2&gt;&lt;p&gt;​    构成RAID的
+    
+    </summary>
+    
+    
+      <category term="raid" scheme="https://herbertzhang1989.github.io/tags/raid/"/>
+    
+      <category term="arcconf" scheme="https://herbertzhang1989.github.io/tags/arcconf/"/>
+    
+      <category term="storcli" scheme="https://herbertzhang1989.github.io/tags/storcli/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ansible</title>
+    <link href="https://herbertzhang1989.github.io/2017/08/24/Ansible/"/>
+    <id>https://herbertzhang1989.github.io/2017/08/24/Ansible/</id>
+    <published>2017-08-24T08:42:46.913Z</published>
+    <updated>2018-04-11T08:03:36.412Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="css/images/t1.png" alt=""></p>
+<h2 id="一、忽略错误信息"><a href="#一、忽略错误信息" class="headerlink" title="一、忽略错误信息"></a>一、忽略错误信息</h2><ul>
+<li><p>方式一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tasks:</div><div class="line">  - name: run this command <span class="keyword">and</span> ignore the result</div><div class="line">    shell: /usr/bin/somecommand || /bin/true</div></pre></td></tr></table></figure>
+</li>
+<li><p>方式二</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tasks:</div><div class="line">  - name: run this command and ignore the result</div><div class="line">    shell: /usr/bin/somecommand</div><div class="line">    ignore_errors: True</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="二、Handlers-在发生改变时执行的操作"><a href="#二、Handlers-在发生改变时执行的操作" class="headerlink" title="二、Handlers: 在发生改变时执行的操作"></a>二、Handlers: 在发生改变时执行的操作</h2><ul>
+<li><p>Handlers 是由通知者进行 notify, 如果没有被 notify,handlers 不会执行.不管有多少个通知者进行了 notify,等到 play 中的所有 task 执行完成之后,handlers 也只会被执行一次.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- name: template configuration file</div><div class="line">  template: src=template.j2 dest=/etc/foo.conf</div><div class="line">  notify:</div><div class="line">     - restart memcached</div><div class="line">     - restart apache</div><div class="line">handlers:</div><div class="line">  - name: restart memcached</div><div class="line">    service:  name=memcached state=restarted</div><div class="line">  - name: restart apache</div><div class="line">    service: name=apache state=restarted</div></pre></td></tr></table></figure>
+</li>
+<li><p>立即执行所有的 handler 命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tasks:</div><div class="line">   - shell: some tasks go here</div><div class="line">   - meta: flush_handlers</div><div class="line">   - shell: some other tasks</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="三、变量"><a href="#三、变量" class="headerlink" title="三、变量"></a>三、变量</h2><ul>
+<li>合法变量名：变量名可以为字母,数字以及下划线.变量始终应该以字母开头</li>
+<li>在Inventory中定义变量</li>
+</ul>
+<p>主机变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[host]</div><div class="line">host1 http_port=80 maxRequestsPerChild=808</div><div class="line">host2 http_port=303 maxRequestsPerChild=909</div><div class="line">``` </div><div class="line">   </div><div class="line">组的变量</div></pre></td></tr></table></figure>
+<p>[host]<br>host1<br>host2</p>
+<p>[host:vars]<br>ntp_server=ntp.atlanta.example.com<br>proxy=proxy.atlanta.example.com<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 在playbook中定义变量</div></pre></td></tr></table></figure></p>
+<ul>
+<li>hosts: webservers<br>vars:<br>  http_port: 80<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 使用Facts获取的信息,使用以下命令可以查看指定主机的系统信息</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>ansible hostname -m setup<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">返回值如下：</div><div class="line"></div><div class="line">![返回值](css/images/t2.jpg)</div><div class="line">使用方式：</div></pre></td></tr></table></figure></p>
+<p>访问本机：<br><br>访问其它主机：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">关闭Facts：</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>hosts: whatever<br>gather_facts: no</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 注册变量：一般用于记录执行结果</div></pre></td></tr></table></figure>
+</li>
+<li><p>name: test play<br>hosts: all</p>
+<p>tasks:</p>
+<pre><code>- shell: cat /etc/motd
+  register: motd_contents
+
+- shell: echo &quot;motd contains the word hi&quot;
+  when: motd_contents.stdout.find(&apos;hi&apos;) != -1
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 变量文件分割：可以保证你共享playbook源码时隔离敏感数据的风险</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>hosts: all<br>remote_user: root<br>vars:<br>  favcolor: blue<br>vars_files:</p>
+<ul>
+<li>/vars/external_vars.yml</li>
+</ul>
+<p>tasks:</p>
+<ul>
+<li>name: this is just a placeholder<br>command: /bin/echo foo<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/vars/external_vars.yml</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="in-the-above-example-this-would-be-vars-external-vars-yml"><a href="#in-the-above-example-this-would-be-vars-external-vars-yml" class="headerlink" title="in the above example, this would be vars/external_vars.yml"></a>in the above example, this would be vars/external_vars.yml</h1><p>somevar: somevalue<br>password: magic<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 命令行中传递变量</div></pre></td></tr></table></figure></p>
+<hr>
+<ul>
+<li><p>hosts: ‘‘<br>remote_user: ‘‘</p>
+<p>tasks:</p>
+<ul>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<p>ansible-playbook release.yml –extra-vars “hosts=vipers user=starbuck”<br>```</p>
+<ul>
+<li><p><strong>变量的优先级</strong></p>
+<ul>
+<li>extra vars (在命令行中使用 -e)优先级最高</li>
+<li>然后是在inventory中定义的连接变量(比如ansible_ssh_user)</li>
+<li>接着是大多数的其它变量(命令行转换,play中的变量,included的变量,role中的变量等)</li>
+<li>然后是在inventory定义的其它变量</li>
+<li>然后是由系统发现的facts</li>
+<li>然后是 “role默认变量”, 这个是最默认的值,很容易丧失优先权</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;css/images/t1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;一、忽略错误信息&quot;&gt;&lt;a href=&quot;#一、忽略错误信息&quot; class=&quot;headerlink&quot; title=&quot;一、忽略错误信息&quot;&gt;&lt;/a&gt;一、忽略错误信息&lt;/h2&gt;&lt;ul&gt;
+
+    
+    </summary>
+    
+    
+      <category term="ansbile" scheme="https://herbertzhang1989.github.io/tags/ansbile/"/>
+    
+  </entry>
+  
+</feed>
