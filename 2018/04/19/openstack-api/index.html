@@ -3,22 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Ansible | Enjoy Life</title>
+    <title>OpenStack API 汇总 | Enjoy Life</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="一、忽略错误信息 方式一 123tasks:  - name: run this command and ignore the result    shell: /usr/bin/somecommand || /bin/true  方式二 1234tasks:  - name: run this command and ignore the result    shell: /usr/bin/s">
-<meta name="keywords" content="ansbile">
+    <meta name="description" content="1、OpenStack 简介OpenStack 这个词不是指单个应用程序。它是一个服务集合，这些服务协同工作来实现 IaaS 云。每个 OpenStack 服务都有一个正式名称和一个代号，如下表所示，而且每个 OpenStack 服务公开了自己的 Python API。    正式名称 代号     Identity Service keystone   Image Service glance">
+<meta name="keywords" content="openstack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ansible">
-<meta property="og:url" content="https://herbertzhang1989.github.io/2017/08/24/Ansible/index.html">
+<meta property="og:title" content="OpenStack API 汇总">
+<meta property="og:url" content="https://herbertzhang1989.github.io/2018/04/19/openstack-api/index.html">
 <meta property="og:site_name" content="Enjoy Life">
-<meta property="og:description" content="一、忽略错误信息 方式一 123tasks:  - name: run this command and ignore the result    shell: /usr/bin/somecommand || /bin/true  方式二 1234tasks:  - name: run this command and ignore the result    shell: /usr/bin/s">
+<meta property="og:description" content="1、OpenStack 简介OpenStack 这个词不是指单个应用程序。它是一个服务集合，这些服务协同工作来实现 IaaS 云。每个 OpenStack 服务都有一个正式名称和一个代号，如下表所示，而且每个 OpenStack 服务公开了自己的 Python API。    正式名称 代号     Identity Service keystone   Image Service glance">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://herbertzhang1989.github.io/2017/08/24/Ansible/css/images/t1.png">
-<meta property="og:updated_time" content="2018-04-11T08:03:36.412Z">
+<meta property="og:updated_time" content="2018-04-19T01:02:23.224Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ansible">
-<meta name="twitter:description" content="一、忽略错误信息 方式一 123tasks:  - name: run this command and ignore the result    shell: /usr/bin/somecommand || /bin/true  方式二 1234tasks:  - name: run this command and ignore the result    shell: /usr/bin/s">
-<meta name="twitter:image" content="https://herbertzhang1989.github.io/2017/08/24/Ansible/css/images/t1.png">
+<meta name="twitter:title" content="OpenStack API 汇总">
+<meta name="twitter:description" content="1、OpenStack 简介OpenStack 这个词不是指单个应用程序。它是一个服务集合，这些服务协同工作来实现 IaaS 云。每个 OpenStack 服务都有一个正式名称和一个代号，如下表所示，而且每个 OpenStack 服务公开了自己的 Python API。    正式名称 代号     Identity Service keystone   Image Service glance">
     
 
     
@@ -181,7 +179,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-Ansible" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-openstack-api" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -189,7 +187,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            Ansible
+            OpenStack API 汇总
         </h1>
     
 
@@ -198,8 +196,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/08/24/Ansible/">
-            <time datetime="2017-08-24T08:42:46.913Z" itemprop="datePublished">2017-08-24</time>
+        <a href="/2018/04/19/openstack-api/">
+            <time datetime="2018-04-19T01:00:51.783Z" itemprop="datePublished">2018-04-19</time>
         </a>
     </div>
 
@@ -208,7 +206,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/ansbile/">ansbile</a>
+        <a class="tag-link" href="/tags/openstack/">openstack</a>
     </div>
 
                     </div>
@@ -219,90 +217,61 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p><img src="css/images/t1.png" alt=""></p>
-<h2 id="一、忽略错误信息"><a href="#一、忽略错误信息" class="headerlink" title="一、忽略错误信息"></a>一、忽略错误信息</h2><ul>
-<li><p>方式一</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tasks:</div><div class="line">  - name: run this command <span class="keyword">and</span> ignore the result</div><div class="line">    shell: /usr/bin/somecommand || /bin/true</div></pre></td></tr></table></figure>
-</li>
-<li><p>方式二</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tasks:</div><div class="line">  - name: run this command and ignore the result</div><div class="line">    shell: /usr/bin/somecommand</div><div class="line">    ignore_errors: True</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h2 id="二、Handlers-在发生改变时执行的操作"><a href="#二、Handlers-在发生改变时执行的操作" class="headerlink" title="二、Handlers: 在发生改变时执行的操作"></a>二、Handlers: 在发生改变时执行的操作</h2><ul>
-<li><p>Handlers 是由通知者进行 notify, 如果没有被 notify,handlers 不会执行.不管有多少个通知者进行了 notify,等到 play 中的所有 task 执行完成之后,handlers 也只会被执行一次.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- name: template configuration file</div><div class="line">  template: src=template.j2 dest=/etc/foo.conf</div><div class="line">  notify:</div><div class="line">     - restart memcached</div><div class="line">     - restart apache</div><div class="line">handlers:</div><div class="line">  - name: restart memcached</div><div class="line">    service:  name=memcached state=restarted</div><div class="line">  - name: restart apache</div><div class="line">    service: name=apache state=restarted</div></pre></td></tr></table></figure>
-</li>
-<li><p>立即执行所有的 handler 命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tasks:</div><div class="line">   - shell: some tasks go here</div><div class="line">   - meta: flush_handlers</div><div class="line">   - shell: some other tasks</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h2 id="三、变量"><a href="#三、变量" class="headerlink" title="三、变量"></a>三、变量</h2><ul>
-<li>合法变量名：变量名可以为字母,数字以及下划线.变量始终应该以字母开头</li>
-<li>在Inventory中定义变量</li>
-</ul>
-<p>主机变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[host]</div><div class="line">host1 http_port=80 maxRequestsPerChild=808</div><div class="line">host2 http_port=303 maxRequestsPerChild=909</div><div class="line">``` </div><div class="line">   </div><div class="line">组的变量</div></pre></td></tr></table></figure>
-<p>[host]<br>host1<br>host2</p>
-<p>[host:vars]<br>ntp_server=ntp.atlanta.example.com<br>proxy=proxy.atlanta.example.com<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 在playbook中定义变量</div></pre></td></tr></table></figure></p>
-<ul>
-<li>hosts: webservers<br>vars:<br>  http_port: 80<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 使用Facts获取的信息,使用以下命令可以查看指定主机的系统信息</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>ansible hostname -m setup<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">返回值如下：</div><div class="line"></div><div class="line">![返回值](css/images/t2.jpg)</div><div class="line">使用方式：</div></pre></td></tr></table></figure></p>
-<p>访问本机：<br><br>访问其它主机：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">关闭Facts：</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p>hosts: whatever<br>gather_facts: no</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 注册变量：一般用于记录执行结果</div></pre></td></tr></table></figure>
-</li>
-<li><p>name: test play<br>hosts: all</p>
-<p>tasks:</p>
-<pre><code>- shell: cat /etc/motd
-  register: motd_contents
-
-- shell: echo &quot;motd contains the word hi&quot;
-  when: motd_contents.stdout.find(&apos;hi&apos;) != -1
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 变量文件分割：可以保证你共享playbook源码时隔离敏感数据的风险</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<ul>
-<li><p>hosts: all<br>remote_user: root<br>vars:<br>  favcolor: blue<br>vars_files:</p>
-<ul>
-<li>/vars/external_vars.yml</li>
-</ul>
-<p>tasks:</p>
-<ul>
-<li>name: this is just a placeholder<br>command: /bin/echo foo<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/vars/external_vars.yml</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="in-the-above-example-this-would-be-vars-external-vars-yml"><a href="#in-the-above-example-this-would-be-vars-external-vars-yml" class="headerlink" title="in the above example, this would be vars/external_vars.yml"></a>in the above example, this would be vars/external_vars.yml</h1><p>somevar: somevalue<br>password: magic<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 命令行中传递变量</div></pre></td></tr></table></figure></p>
-<hr>
-<ul>
-<li><p>hosts: ‘‘<br>remote_user: ‘‘</p>
-<p>tasks:</p>
-<ul>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<p>ansible-playbook release.yml –extra-vars “hosts=vipers user=starbuck”<br>```</p>
-<ul>
-<li><p><strong>变量的优先级</strong></p>
-<ul>
-<li>extra vars (在命令行中使用 -e)优先级最高</li>
-<li>然后是在inventory中定义的连接变量(比如ansible_ssh_user)</li>
-<li>接着是大多数的其它变量(命令行转换,play中的变量,included的变量,role中的变量等)</li>
-<li>然后是在inventory定义的其它变量</li>
-<li>然后是由系统发现的facts</li>
-<li>然后是 “role默认变量”, 这个是最默认的值,很容易丧失优先权</li>
-</ul>
-</li>
-</ul>
+            <h2 id="1、OpenStack-简介"><a href="#1、OpenStack-简介" class="headerlink" title="1、OpenStack 简介"></a>1、<em>OpenStack</em> 简介</h2><p><em>OpenStack</em> 这个词不是指单个应用程序。它是一个服务集合，这些服务协同工作来实现 IaaS 云。每个 OpenStack 服务都有一个正式名称和一个代号，如下表所示，而且每个 OpenStack 服务公开了自己的 Python API。</p>
+<table>
+<thead>
+<tr>
+<th>正式名称</th>
+<th>代号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity Service</td>
+<td>keystone</td>
+</tr>
+<tr>
+<td>Image Service</td>
+<td>glance</td>
+</tr>
+<tr>
+<td>Compute Service</td>
+<td>nova</td>
+</tr>
+<tr>
+<td>Networking Service</td>
+<td>quantum</td>
+</tr>
+<tr>
+<td>Block Storage Service</td>
+<td>cinder</td>
+</tr>
+<tr>
+<td>Object Storage Service</td>
+<td>swift</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2、tenant-project"><a href="#2、tenant-project" class="headerlink" title="2、tenant/project"></a>2、tenant/project</h2><p>Openstack 中, 以租户作为云主机隔离的单位</p>
+<p>project 等同于 tenant</p>
+<p>OpenStack Compute Service (nova) 作为认证时候, 称为 project</p>
+<p>OpenStack Identity Service (keystone) 作为认证时候, 称为 tenant</p>
+<p>在管理 openstack 时候, 需要添加独立的 project, 然后每个 project 具有独立的用户, 网络, 云主机。</p>
+<p><strong>ketstone命令详解</strong>：</p>
+<p>1、查看帮助：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">keystone 命令帮助  </div><div class="line">     tenant-create       Create new tenant.  </div><div class="line">     tenant-delete       Delete tenant.  </div><div class="line">     tenant-get          Display tenant details.  </div><div class="line">     tenant-list         List all tenants.  </div><div class="line">     tenant-update       Update tenant name, description, enabled status.  </div><div class="line">     bootstrap           Grants a new role to a new user on a new tenant, after  </div><div class="line">   --os-tenant-name &lt;auth-tenant-name&gt;  </div><div class="line">   --os-tenant-id &lt;tenant-id&gt;</div></pre></td></tr></table></figure>
+<p> 2、列出tenant：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">keystone tenant-list  </div><div class="line"></div><div class="line">+----------------------------------+----------+---------+  </div><div class="line"></div><div class="line">|                id                |   name   | enabled |  </div><div class="line"></div><div class="line">+----------------------------------+----------+---------+  </div><div class="line"></div><div class="line">| e3a71a59840c4e88b8740b789c3afb9c |  admin   |   True  |  </div><div class="line"></div><div class="line">| fa30a4cd2eba46f0b58d591b7335d660 | alt_demo |   True  |  </div><div class="line"></div><div class="line">| 9467f30b8bba4770a06a687e4584636b |  cloud   |   True  |  </div><div class="line"></div><div class="line">| 87c63116e3b4440eaa9640494b53cd43 |   demo   |   True  |  </div><div class="line"></div><div class="line">| bc95edec7a674bb8873d067d9ddedaec | services |   True  |  </div><div class="line"></div><div class="line">+----------------------------------+----------+---------+</div></pre></td></tr></table></figure>
+<p>3、添加 tenant：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">keystone tenant-create --name cloud  </div><div class="line">+-------------+----------------------------------+  </div><div class="line">|   Property  |              Value               |  </div><div class="line">+-------------+----------------------------------+  </div><div class="line">| description |                                  |  </div><div class="line">|   enabled   |               True               |  </div><div class="line">|      id     | 9467f30b8bba4770a06a687e4584636b |   &lt;- 创建后, 使用 keystone tenant-get cloud 能够重新调回信息  </div><div class="line">|     name    |              cloud               |  </div><div class="line">+-------------+----------------------------------+</div></pre></td></tr></table></figure>
+<p>4、更新信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keystone tenant-update --description=&quot;use for test.&quot; --enabled=true cloud</div></pre></td></tr></table></figure>
+<p> 5、删除tenant</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keystone tenant-delete 9467f30b8bba4770a06a687e4584636b</div></pre></td></tr></table></figure>
+<h2 id="3、keystone"><a href="#3、keystone" class="headerlink" title="3、keystone"></a>3、keystone</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">from keystoneauth1 import loading</div><div class="line">from keystoneauth1 import session</div><div class="line">from novaclient import client</div><div class="line">loader = loading.get_plugin_loader(&apos;password&apos;)</div><div class="line">auth = loader.load_from_options(auth_url=&apos;http://*.*.*.*:5000&apos;,</div><div class="line">                            username=&apos;admin&apos;,</div><div class="line">                            password=&apos;Admin@123&apos;,</div><div class="line">                            project_name=&apos;admin&apos;)</div><div class="line">sess = session.Session(auth=auth)</div><div class="line">nova = client.Client(&apos;2&apos;, session=sess)</div><div class="line">nova.servers.list()</div></pre></td></tr></table></figure>
+<h2 id="4、glance"><a href="#4、glance" class="headerlink" title="4、glance"></a>4、glance</h2><p>OpenStack Image (<code>glance</code>) Python API 在执行初始身份验证时与 Compute API 有一些细微的差别。<code>glance</code> API 依赖于必须从 <code>keystone</code> API 获取的信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import keystoneclient.v2_0.client as ksclient</div><div class="line">import glanceclient.v2.client as glclient</div><div class="line">keystone = ksclient.Client(auth_url=&quot;http://*.*.*.*:5000/v2.0&quot;,</div><div class="line">                       username=&quot;admin&quot;,</div><div class="line">                       password=&quot;Admin@123&quot;,</div><div class="line">                       tenant_name=&quot;admin&quot;)</div><div class="line">glance_endpoint = keystone.service_catalog.url_for(service_type=&apos;image&apos;, endpoint_type=&apos;publicURL&apos;)</div><div class="line">glance = glclient.Client(glance_endpoint, token=keystone.auth_token)</div><div class="line">images = glance.images.list()</div></pre></td></tr></table></figure>
+<h2 id="5、openstacksdk"><a href="#5、openstacksdk" class="headerlink" title="5、openstacksdk"></a>5、openstacksdk</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">from openstack import connection</div><div class="line">#v2.x</div><div class="line">conn = connection.Connection(auth_url=&quot;http://*.*.*.*:5000/v2&quot;,</div><div class="line">                             project_name=&quot;admin&quot;,</div><div class="line">                             username=&quot;admin&quot;,</div><div class="line">                             password=&quot;Admin@123&quot;)</div><div class="line">#v3</div><div class="line">conn = connection.Connection(auth_url=&quot;http://*.*.*.*:5000/v3&quot;,</div><div class="line">                             project_name=&quot;admin&quot;,</div><div class="line">                             user_domain_name=&quot;default&quot;,</div><div class="line">                             project_domain_name=&quot;default&quot;,</div><div class="line">                             username=&quot;admin&quot;, password=&quot;****&quot;)</div><div class="line">                             </div><div class="line">#availability_zones</div><div class="line">&gt;&gt;&gt; for i in conn.compute.availability_zones():</div><div class="line">...     print i</div><div class="line">... </div><div class="line">openstack.compute.v2.availability_zone.AvailabilityZone(zoneState=&#123;u&apos;available&apos;: True&#125;, hosts=None, zoneName=cai)</div><div class="line">openstack.compute.v2.availability_zone.AvailabilityZone(zoneState=&#123;u&apos;available&apos;: True&#125;, hosts=None, zoneName=nova)</div><div class="line"></div><div class="line">#flavors</div><div class="line">&gt;&gt;&gt; for i in conn.compute.flavors():</div><div class="line">...     print i.name</div><div class="line">... </div><div class="line">compute-8-8-60G</div><div class="line">m1.small</div><div class="line">micro-1_512M</div><div class="line">m1.medium</div><div class="line">compute-8_8G</div><div class="line">standard-4_8G</div><div class="line"></div><div class="line">#images</div><div class="line">&gt;&gt;&gt; for i in conn.image.images():</div><div class="line">...     print i.name</div><div class="line">...</div><div class="line">Centos-6.5-20G-ceph</div><div class="line">windows-server-2012-ceph</div><div class="line">Centos6.3-10G</div><div class="line"></div><div class="line">#networks</div><div class="line">&gt;&gt;&gt; for i in conn.network.networks():</div><div class="line">...     print i</div><div class="line">... </div><div class="line">openstack.network.v2.network.Network(status=ACTIVE, subnets=[u&apos;3513e3b3-98cc-4c5c-8365-43d1dc532cfd&apos;], name=cf-network, provider:physical_network=None, router:external=False, admin_state_up=True, provider:network_type=gre, shared=False, id=0bb4ff64-4413-41a9-9c3b-b93d7b6f6db1, provider:segmentation_id=4)</div><div class="line">openstack.network.v2.network.Network(status=ACTIVE, subnets=[u&apos;51079dcc-4fd1-40b4-bf54-cf1b1de8e7c3&apos;], name=network-jszh2, provider:physical_network=None, router:external=False, admin_state_up=True, provider:network_type=gre, shared=False, id=857ecef3-c32b-4205-a9f8-b3bb7876e5b4, provider:segmentation_id=5)</div></pre></td></tr></table></figure>
 
         
         </div>
@@ -313,7 +282,7 @@
 
 </div>
 
-    <a data-url="https://herbertzhang1989.github.io/2017/08/24/Ansible/" data-id="cjg4sepeb0000qs0uknuax2s6" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://herbertzhang1989.github.io/2018/04/19/openstack-api/" data-id="cjg5tod260000mk0uzlqalfkc" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -388,15 +357,11 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/04/09/autoraid/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    RAID自动化
-                
-            </div>
-        </a>
     
+        <a href="/2018/04/18/suse-pxe/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">make sure your installation medium is available</div>
+        </a>
     
 </nav>
 
