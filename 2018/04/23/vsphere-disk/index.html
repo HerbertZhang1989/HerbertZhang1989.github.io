@@ -3,15 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签: pxe | Enjoy Life</title>
+    <title>VMware ESXi 虚拟硬盘格式 | Enjoy Life</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Enjoy Life">
-<meta property="og:url" content="https://herbertzhang1989.github.io/tags/pxe/index.html">
+    <meta name="description" content="1、厚置备延迟置零12默认的创建格式，创建磁盘时，直接从磁盘分配空间，但对磁盘保留数据不置零。所以当有I/O操作时，只需要做置零的操作。磁盘性能较好，时间短，适合于做池模式的虚拟桌面 2、厚置备置零(thick):12创建群集功能的磁盘。创建磁盘时，直接从磁盘分配空间，并对磁盘保留数据置零。所以当有I/O操作时，不需要等待直接执行。磁盘性能最好，时间长，适合于做跑运行繁重应用业务的虚拟机 3、精简">
+<meta name="keywords" content="vsphere disk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VMware ESXi 虚拟硬盘格式">
+<meta property="og:url" content="https://herbertzhang1989.github.io/2018/04/23/vsphere-disk/index.html">
 <meta property="og:site_name" content="Enjoy Life">
+<meta property="og:description" content="1、厚置备延迟置零12默认的创建格式，创建磁盘时，直接从磁盘分配空间，但对磁盘保留数据不置零。所以当有I/O操作时，只需要做置零的操作。磁盘性能较好，时间短，适合于做池模式的虚拟桌面 2、厚置备置零(thick):12创建群集功能的磁盘。创建磁盘时，直接从磁盘分配空间，并对磁盘保留数据置零。所以当有I/O操作时，不需要等待直接执行。磁盘性能最好，时间长，适合于做跑运行繁重应用业务的虚拟机 3、精简">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-23T07:38:08.067Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Enjoy Life">
+<meta name="twitter:title" content="VMware ESXi 虚拟硬盘格式">
+<meta name="twitter:description" content="1、厚置备延迟置零12默认的创建格式，创建磁盘时，直接从磁盘分配空间，但对磁盘保留数据不置零。所以当有I/O操作时，只需要做置零的操作。磁盘性能较好，时间短，适合于做池模式的虚拟桌面 2、厚置备置零(thick):12创建群集功能的磁盘。创建磁盘时，直接从磁盘分配空间，并对磁盘保留数据置零。所以当有I/O操作时，不需要等待直接执行。磁盘性能最好，时间长，适合于做跑运行繁重应用业务的虚拟机 3、精简">
     
 
     
@@ -174,45 +179,149 @@
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#pxe</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-vsphere-disk" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2018/04/18/suse-pxe/">make sure your installation medium is available</a>
+        <h1 class="article-title" itemprop="name">
+            VMware ESXi 虚拟硬盘格式
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2018/04/18/suse-pxe/">
-            <time datetime="2018-04-18T07:19:45.943Z" itemprop="datePublished">2018-04-18</time>
+        <a href="/2018/04/23/vsphere-disk/">
+            <time datetime="2018-04-23T07:23:44.670Z" itemprop="datePublished">2018-04-23</time>
         </a>
     </div>
 
 
-                    
-                    
+                        
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/pxe/">pxe</a>, <a class="tag-link" href="/tags/suse/">suse</a>
+        <a class="tag-link" href="/tags/vsphere-disk/">vsphere disk</a>
     </div>
 
-                </div>
-            </div>
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="1、厚置备延迟置零"><a href="#1、厚置备延迟置零" class="headerlink" title="1、厚置备延迟置零"></a>1、厚置备延迟置零</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">默认的创建格式，创建磁盘时，直接从磁盘分配空间，但对磁盘保留数据不置零。所以当有I/O操作时，只需要做置零的操作。</div><div class="line">磁盘性能较好，时间短，适合于做池模式的虚拟桌面</div></pre></td></tr></table></figure>
+<h3 id="2、厚置备置零-thick"><a href="#2、厚置备置零-thick" class="headerlink" title="2、厚置备置零(thick):"></a>2、厚置备置零(thick):</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">创建群集功能的磁盘。创建磁盘时，直接从磁盘分配空间，并对磁盘保留数据置零。所以当有I/O操作时，不需要等待直接执行。</div><div class="line">磁盘性能最好，时间长，适合于做跑运行繁重应用业务的虚拟机</div></pre></td></tr></table></figure>
+<h3 id="3、精简置备-thin-Provision"><a href="#3、精简置备-thin-Provision" class="headerlink" title="3、精简置备(thin Provision):"></a>3、精简置备(thin Provision):</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">创建磁盘时，占用磁盘的空间大小根据实际使用量计算，即用多少分多少，提前不分配空间，对磁盘保留数据不置零，且最大不超过划分磁盘的大小。</div><div class="line">所以当有I/O操作时，需要先分配空间，在将空间置零，才能执行I/O操作。当有频繁I/O操作时，磁盘性能会有所下降</div><div class="line">I/O不频繁时，磁盘性能较好；I/O频繁时，磁盘性能较差。时间短，适合于对磁盘I/O不频繁的业务应用虚拟机</div></pre></td></tr></table></figure>
+<p>转自：<a href="http://www.mycitrix.cn/esxi-disk-mode.html" target="_blank" rel="external">http://www.mycitrix.cn/esxi-disk-mode.html</a></p>
+
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
 </div>
+
+    <a data-url="https://herbertzhang1989.github.io/2018/04/23/vsphere-disk/" data-id="cjgbxk16u0000qk0uc6g0wquq" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/04/19/openstack-api/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">OpenStack API 汇总</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
 </section>
             
                 
